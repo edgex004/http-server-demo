@@ -2,6 +2,23 @@
   "description": "Container for prototype schema definitions.",
   "type": "object",
   "$defs": {
+    "GetLogEntryResponse": {
+      "title": "GetLogEntryResponse",
+      "required": [
+        "entry_id",
+        "entry"
+      ],
+      "type": "object",
+      "properties": {
+        "entry_id": {
+          "title": "Entry Id",
+          "type": "integer"
+        },
+        "entry": {
+          "$ref": "#/$defs/LogEntry"
+        }
+      }
+    },
     "HTTPValidationError": {
       "title": "HTTPValidationError",
       "type": "object",
@@ -15,38 +32,64 @@
         }
       }
     },
-    "Item": {
-      "title": "Item",
+    "Location": {
+      "title": "Location",
       "required": [
-        "name",
-        "value"
+        "latitude",
+        "longitude"
       ],
       "type": "object",
       "properties": {
-        "name": {
-          "title": "Name",
-          "type": "string"
+        "latitude": {
+          "title": "Latitude",
+          "type": "number"
         },
-        "value": {
-          "title": "Value",
-          "type": "integer"
+        "longitude": {
+          "title": "Longitude",
+          "type": "number"
         }
       }
     },
-    "ItemResponse": {
-      "title": "ItemResponse",
+    "LogEntry": {
+      "title": "LogEntry",
       "required": [
-        "id",
-        "item"
+        "device_id",
+        "title",
+        "entry"
       ],
       "type": "object",
       "properties": {
-        "id": {
-          "title": "Id",
-          "type": "integer"
+        "device_id": {
+          "title": "Device Id",
+          "type": "string"
         },
-        "item": {
-          "$ref": "#/$defs/Item"
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "entry": {
+          "title": "Entry",
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/$defs/Location"
+        },
+        "temperature": {
+          "title": "Temperature",
+          "type": "number"
+        }
+      }
+    },
+    "PostLogEntryResponse": {
+      "title": "PostLogEntryResponse",
+      "required": [
+        "entry_id"
+      ],
+      "type": "object",
+      "properties": {
+        "entry_id": {
+          "title": "Entry Id",
+          "type": "integer"
         }
       }
     },
@@ -85,14 +128,20 @@
     }
   },
   "properties": {
+    "GetLogEntryResponse": {
+      "$ref": "#/$defs/GetLogEntryResponse"
+    },
     "HTTPValidationError": {
       "$ref": "#/$defs/HTTPValidationError"
     },
-    "Item": {
-      "$ref": "#/$defs/Item"
+    "Location": {
+      "$ref": "#/$defs/Location"
     },
-    "ItemResponse": {
-      "$ref": "#/$defs/ItemResponse"
+    "LogEntry": {
+      "$ref": "#/$defs/LogEntry"
+    },
+    "PostLogEntryResponse": {
+      "$ref": "#/$defs/PostLogEntryResponse"
     },
     "ValidationError": {
       "$ref": "#/$defs/ValidationError"

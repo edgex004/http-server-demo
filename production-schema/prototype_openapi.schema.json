@@ -2,28 +2,40 @@
   "openapi": "3.0.2",
   "info": {
     "title": "FastAPI",
-    "description": "\nTest server to store and retrieve objects from volitile memory.\n\n## Items\n\nYou can:\n* **create items**.\n* **read items**.\n",
-    "version": "0.0.1"
+    "description": "\nTest server to store and retrieve log entries from volitile memory.\n\n## Log entries\n\nYou can:\n* **create log entries**.\n* **read log entries**.\n",
+    "version": "0.0.2"
   },
   "paths": {
-    "/items/": {
+    "/logs/entries": {
       "get": {
         "tags": [
-          "items"
+          "log entries"
         ],
-        "summary": "Read Item",
-        "operationId": "read_item_items__get",
+        "summary": "Read Entries",
+        "operationId": "read_entries_logs_entries_get",
         "parameters": [
           {
             "required": false,
             "schema": {
-              "title": "Item Ids",
+              "title": "Entry Ids",
               "type": "array",
               "items": {
                 "type": "integer"
               }
             },
-            "name": "item_ids",
+            "name": "entry_ids",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Device Ids",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "name": "device_ids",
             "in": "query"
           }
         ],
@@ -33,10 +45,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "title": "Response Read Item Items  Get",
+                  "title": "Response Read Entries Logs Entries Get",
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ItemResponse"
+                    "$ref": "#/components/schemas/GetLogEntryResponse"
                   }
                 }
               }
@@ -53,31 +65,18 @@
             }
           }
         }
-      }
-    },
-    "/items/{item_id}": {
-      "put": {
+      },
+      "post": {
         "tags": [
-          "items"
+          "log entries"
         ],
-        "summary": "Update Item",
-        "operationId": "update_item_items__item_id__put",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Item Id",
-              "type": "integer"
-            },
-            "name": "item_id",
-            "in": "path"
-          }
-        ],
+        "summary": "Add Entry",
+        "operationId": "add_entry_logs_entries_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Item"
+                "$ref": "#/components/schemas/LogEntry"
               }
             }
           },
@@ -89,7 +88,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ItemResponse"
+                  "$ref": "#/components/schemas/PostLogEntryResponse"
                 }
               }
             }
@@ -110,6 +109,23 @@
   },
   "components": {
     "schemas": {
+      "GetLogEntryResponse": {
+        "title": "GetLogEntryResponse",
+        "required": [
+          "entry_id",
+          "entry"
+        ],
+        "type": "object",
+        "properties": {
+          "entry_id": {
+            "title": "Entry Id",
+            "type": "integer"
+          },
+          "entry": {
+            "$ref": "#/components/schemas/LogEntry"
+          }
+        }
+      },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
         "type": "object",
@@ -123,38 +139,64 @@
           }
         }
       },
-      "Item": {
-        "title": "Item",
+      "Location": {
+        "title": "Location",
         "required": [
-          "name",
-          "value"
+          "latitude",
+          "longitude"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "title": "Name",
-            "type": "string"
+          "latitude": {
+            "title": "Latitude",
+            "type": "number"
           },
-          "value": {
-            "title": "Value",
-            "type": "integer"
+          "longitude": {
+            "title": "Longitude",
+            "type": "number"
           }
         }
       },
-      "ItemResponse": {
-        "title": "ItemResponse",
+      "LogEntry": {
+        "title": "LogEntry",
         "required": [
-          "id",
-          "item"
+          "device_id",
+          "title",
+          "entry"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "title": "Id",
-            "type": "integer"
+          "device_id": {
+            "title": "Device Id",
+            "type": "string"
           },
-          "item": {
-            "$ref": "#/components/schemas/Item"
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "entry": {
+            "title": "Entry",
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Location"
+          },
+          "temperature": {
+            "title": "Temperature",
+            "type": "number"
+          }
+        }
+      },
+      "PostLogEntryResponse": {
+        "title": "PostLogEntryResponse",
+        "required": [
+          "entry_id"
+        ],
+        "type": "object",
+        "properties": {
+          "entry_id": {
+            "title": "Entry Id",
+            "type": "integer"
           }
         }
       },
@@ -195,8 +237,8 @@
   },
   "tags": [
     {
-      "name": "items",
-      "description": "Manage items."
+      "name": "log entries",
+      "description": "Manage log entries."
     }
   ]
 }

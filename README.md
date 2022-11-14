@@ -6,7 +6,11 @@ Messing around with http server frameworks.
 
 Written using FastAPI python http framework.
 
-Generate a stub to begin production server by running 
+See [the prototype readme](prototype/README.md) for usage.
+
+## Production server stub
+
+Generate a stub to begin writing a production server by running 
 
 ```
 ./generate_production_server.sh
