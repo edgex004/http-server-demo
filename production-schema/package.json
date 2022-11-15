@@ -1,0 +1,8 @@
+{  
+  "scripts": {
+    "generate-go-types": "mkdir -p ./out/ && quicktype --out ./out/logging_schema.go --top-level loggingSchema --lang go --src-lang schema --package logging --src prototype_json_schema.schema.json"
+  },
+  "dependencies": {
+    "quicktype": "^15.1.0"
+  }
+}

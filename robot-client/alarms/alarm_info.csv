@@ -1,0 +1,7 @@
+NAME,                   PRIORITY,       LED INDICATOR,      SOUND,      LOG1,       LOG2,
+arm motor stall,        high,           red flash,          blare,      location,   temperature
+wheel motor stall,      high,           red flash,          blare,      location,   temperature
+firmware load fail,     high,           red flash,          blare,      temperature
+software update failed, low,            yellow solid,       beep
+pause commanded,        low,            yellow flash,       beep,       location       
+network lost,           medium,         orange flash,       beep       
