@@ -30,8 +30,18 @@ app = FastAPI(
 
 Logs: dict[str,list[interface_types.LogEntry]] = {}
 
-@app.get("/logs/entries", response_model=list[interface_types.GetLogEntryResponse], tags=["log entries"])
-def read_entries(entry_ids: Union[list[int], None] = Query(default=None), device_ids: Union[list[str], None] = Query(default=None)):
+@app.get("/logs/entries", \
+    response_model=list[interface_types.GetLogEntryResponse], \
+    tags=["log entries"])
+def read_entries(\
+    entry_ids: Union[list[int], None] = Query(default=None), \
+    device_ids: Union[list[str], None] = Query(default=None)):
+    """
+    Read existing log entries.
+    :param entry_ids: 0 based indexes for desired log entries 
+    :param device_ids: strings that must match the IDs of the desired robots
+    :return: the query result
+    """
     ret = []
     if device_ids:
         for device_id in device_ids:
@@ -41,8 +51,15 @@ def read_entries(entry_ids: Union[list[int], None] = Query(default=None), device
                         ret.append({"entry_id": entry_id, "entry":Logs[device_id][entry_id]})
     return ret
 
-@app.post("/logs/entries", response_model=interface_types.PostLogEntryResponse, tags=["log entries"])
+@app.post("/logs/entries", \
+    response_model=interface_types.PostLogEntryResponse, \
+    tags=["log entries"])
 def add_entry(entry: interface_types.LogEntry):
+    """
+    Add a new log entry.
+    :param entry: 0 based indexes for desired log entries 
+    :return: the id for the new entry. This will increment for each entry added for a given robot.
+    """
     if entry.device_id not in Logs:
         Logs[entry.device_id] = []
     Logs[entry.device_id].append(entry)
