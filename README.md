@@ -11,7 +11,7 @@ See [the prototype readme](prototype/README.md) for usage.
 
 ## Robot Client
 
-Robot test client is written in golang. It runs utilizing generated code from [the code generators][#code-generators].
+Robot test client is written in golang. It runs utilizing generated code from [the code generators](#code-generators).
 
 See [the robot readme](robot-client/README.md) for usage.
 
