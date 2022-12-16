@@ -2,6 +2,7 @@
 
 # exit when any command fails
 set -e
+set -x
 
 ENV_FOLDER="$(pwd)/prototype/.env"
 ENV_ACTIVATE_SCRIPT="${ENV_FOLDER}/bin/activate"

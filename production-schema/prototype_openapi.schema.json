@@ -12,6 +12,7 @@
           "log entries"
         ],
         "summary": "Read Entries",
+        "description": "Read existing log entries.\n:param entry_ids: 0 based indexes for desired log entries \n:param device_ids: strings that must match the IDs of the desired robots\n:return: the query result",
         "operationId": "read_entries_logs_entries_get",
         "parameters": [
           {
@@ -71,6 +72,7 @@
           "log entries"
         ],
         "summary": "Add Entry",
+        "description": "Add a new log entry.\n:param entry: 0 based indexes for desired log entries \n:return: the id for the new entry. This will increment for each entry added for a given robot.",
         "operationId": "add_entry_logs_entries_post",
         "requestBody": {
           "content": {
